@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sell Through Rate Calculator</title>
+  <style>
+    body { font-family: sans-serif; padding: 1rem; max-width: 400px; margin: auto; text-align: center; }
+    input { width: 100%; padding: 0.5rem; font-size: 1rem; margin-bottom: 1rem; }
+    .btn { display: block; width: 100%; padding: 0.75rem; font-size: 1rem; color: #fff; background:#007bff; border:none; border-radius:4px; }
+    .card { border:1px solid #ccc; border-radius:4px; padding:1rem; margin-top:1rem; text-align:center; }
+    .str-good { color: green; font-weight: bold; }
+    .str-bad { color: red; font-weight: bold; }
+    h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Sell Through Rate Calculator</h1>
+  <input id="active" type="number" placeholder="Active Listings" />
+  <input id="sold" type="number" placeholder="Sold Listings" />
+  <button class="btn" onclick="calculateSTR()">Calculate STR</button>
+  <div id="result"></div>
+
+  <script>
+    function calculateSTR() {
+      const a = parseInt(document.getElementById('active').value);
+      const s = parseInt(document.getElementById('sold').value);
+      const resultEl = document.getElementById('result');
+      if (isNaN(a) || isNaN(s) || (a + s) === 0) {
+        resultEl.innerHTML = '<p>Please enter valid numbers.</p>';
+        return;
+      }
+      const str = ((s / (a + s)) * 100).toFixed(2);
+      const status = str >= 50 ? '<span class="str-good">✅ Good STR!</span>' : '<span class="str-bad">⚠️ Low STR.</span>';
+      resultEl.innerHTML = `
+        <div class="card">
+          <p><strong>STR:</strong> <span>${str}%</span></p>
+          <p>${status}</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
